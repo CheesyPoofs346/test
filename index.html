@@ -1,24 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Main Window</title>
+<title>Moving Popup</title>
+<style>
+body {
+  margin: 0;
+}
+</style>
 </head>
 <body>
-
-<button onclick="openMovingPopups()">Open Moving Popups</button>
 
 <script>
 const numPopups = 5; // Number of popups to open
 
-function openMovingPopups() {  // Corrected function name
-  // Get the current URL's directory (for correct path)
-  const currentURL = window.location.href;
-  const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
-  const popupURL = baseURL + 'popup.html';
+// Get the current URL's directory (for correct path)
+const currentURL = window.location.href;
+const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
+const popupURL = baseURL + 'popup.html';
 
-  for (let i = 0; i < numPopups; i++) {
-    window.open(popupURL, 'movingPopup' + i, 'width=300,height=200'); // Unique window names
-  }
+for (let i = 0; i < numPopups; i++) {
+  window.open(popupURL, 'movingPopup' + i, 'width=300,height=200'); // Unique window names
 }
 </script>
 
