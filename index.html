@@ -19,7 +19,10 @@ const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
 const popupURL = baseURL + 'popup.html';
 
 for (let i = 0; i < numPopups; i++) {
-  window.open(popupURL, 'movingPopup' + i, 'width=300,height=200'); // Unique window names
+  const popup = window.open(popupURL, 'movingPopup' + i, 'width=300,height=200');
+  popup.onload = function() {
+    popup.startMoving(i % 2 === 0 ? 1 : -1); // Alternate directions
+  };
 }
 </script>
 
