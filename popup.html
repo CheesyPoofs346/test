@@ -15,7 +15,26 @@ body {
 </div>
 
 <script>
-const popup = document.getElementById('popup');
+const numPopups = 5; // Number of popups to open
+const popups = []; // Array to store popup window objects
+
+function openMovingPopup() {
+  const popup = window.open('popup.html', 'movingPopup', 'width=300,height=200');
+  popups.push(popup); // Add the new popup to the array
+}
+
+for (let i = 0; i < numPopups; i++) {
+  openMovingPopup(); // Open multiple popups
+}
+
+
+// Code for popup.html (separate file)
+// ------------------------------------
+
+// In popup.html:
+// ... (rest of the HTML code for popup.html)
+
+const popupElement = document.getElementById('popup');
 let x = 50;
 let y = 50;
 let dx = 2;
@@ -24,32 +43,30 @@ let maxX;
 let maxY;
 let initialMove = true;
 
+
 function updatePopupPosition() {
-  maxX = window.innerWidth - popup.offsetWidth;
-  maxY = window.innerHeight - popup.offsetHeight;
+  maxX = window.innerWidth - popupElement.offsetWidth;
+  maxY = window.innerHeight - popupElement.offsetHeight;
 
   x += dx;
   y += dy;
 
-  // Bounce off the edges
-  if (x + popup.offsetWidth > maxX || x < 0) {
+  if (x + popupElement.offsetWidth > maxX || x < 0) {
     dx = -dx;
-    dx += (Math.random() - 0.5) * 2; // Add some randomness to direction
+    dx += (Math.random() - 0.5) * 2;
   }
-  if (y + popup.offsetHeight > maxY || y < 0) {
+  if (y + popupElement.offsetHeight > maxY || y < 0) {
     dy = -dy;
-    dy += (Math.random() - 0.5) * 2; // Add some randomness to direction
+    dy += (Math.random() - 0.5) * 2;
   }
 
-    // Randomly change direction
-    if (Math.random() < 0.02) { // 2% chance to change direction each frame
-        dx += (Math.random() - 0.5) * 4; // Add some randomness to direction
-        dy += (Math.random() - 0.5) * 4; // Add some randomness to direction
-    }
+  if (Math.random() < 0.02) {
+    dx += (Math.random() - 0.5) * 4;
+    dy += (Math.random() - 0.5) * 4;
+  }
 
-  // Limit the speed so it doesn't go too crazy
-    dx = Math.max(-5, Math.min(5, dx));
-    dy = Math.max(-5, Math.min(5, dy));
+  dx = Math.max(-5, Math.min(5, dx));
+  dy = Math.max(-5, Math.min(5, dy));
 
 
   if (initialMove) {
@@ -63,6 +80,7 @@ function updatePopupPosition() {
 }
 
 updatePopupPosition();
+
 </script>
 
 </body>
