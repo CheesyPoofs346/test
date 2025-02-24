@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Moving Popup</title>
+<style>
+body {
+  margin: 0;
+}
+</style>
+</head>
+<body>
+
+<div id="popup">
+  This is a popup that moves! <button onclick="window.close()">Close</button>
+</div>
+
+<script>
+const popup = document.getElementById('popup');
+let x = 50;
+let y = 50;
+let dx = 2;
+let dy = 2;
+let maxX;
+let maxY;
+let initialMove = true; // Flag to track initial move
+
+
+function updatePopupPosition() {
+    maxX = window.innerWidth - popup.offsetWidth;
+    maxY = window.innerHeight - popup.offsetHeight;
+  
+    x += dx;
+    y += dy;
+
+    if (x + popup.offsetWidth > maxX || x < 0) {
+      dx = -dx;
+    }
+    if (y + popup.offsetHeight > maxY || y < 0) {
+      dy = -dy;
+    }
+
+  if (initialMove) { // Only try to move after the user has interacted
+    window.moveTo(x, y);
+    initialMove = false;
+  } else {
+    window.moveTo(x, y);
+  }
+
+  requestAnimationFrame(updatePopupPosition);
+}
+
+updatePopupPosition();
+
+</script>
+
+</body>
+</html>
