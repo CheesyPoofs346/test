@@ -19,9 +19,10 @@ const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
 const popupURL = baseURL + 'popup.html';
 
 for (let i = 0; i < numPopups; i++) {
-  const popup = window.open(popupURL, 'movingPopup' + i, 'width=300,height=200');
+  const popup = window.open(popupURL, 'movingPopup' + i, 'width=300,height=200,alwaysOnTop=1');
   popup.onload = function() {
-    popup.startMoving(i % 2 === 0 ? 1 : -1); // Alternate directions
+    popup.focus();
+    popup.moveTo(Math.random() * screen.width, Math.random() * screen.height);
   };
 }
 </script>
