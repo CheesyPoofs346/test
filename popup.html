@@ -16,27 +16,30 @@ body {
 
 <script>
 const popupElement = document.getElementById('popup');
-let x = Math.random() * window.screen.width;
-let dx = (Math.random() * 10 + 5) * (Math.random() < 0.5 ? 1 : -1); // Random speed and direction
+let x = Math.random() * screen.width;
+let y = 0; // Always start at the top of the screen
+let dx = (Math.random() - 0.5) * 30; // Random direction
+let dy = (Math.random() - 0.5) * 30; // Random direction
+let maxX;
+let maxY;
 
 function updatePopupPosition() {
-  const maxX = window.screen.width - popupElement.offsetWidth;
+  maxX = screen.width - popupElement.offsetWidth;
+  maxY = screen.height - popupElement.offsetHeight;
+
   x += dx;
+  y = 0; // Always stay at the top
 
   if (x + popupElement.offsetWidth > maxX || x < 0) {
     dx = -dx;
   }
 
-  window.moveTo(x, 0); // Always at the top of the screen
+  window.moveTo(x, y);
 
   requestAnimationFrame(updatePopupPosition);
 }
 
-function startMoving(direction) {
-  dx *= direction; // Set initial direction
-  updatePopupPosition();
-}
-
+updatePopupPosition();
 </script>
 
 </body>
