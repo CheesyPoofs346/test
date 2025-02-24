@@ -5,16 +5,20 @@
 </head>
 <body>
 
-<button onclick="openPopup()">Open Moving Popup</button>
+<button onclick="openMovingPopups()">Open Moving Popups</button>
 
 <script>
-function openPopup() {
-  // Get the current URL's directory
+const numPopups = 5; // Number of popups to open
+
+function openMovingPopups() {  // Corrected function name
+  // Get the current URL's directory (for correct path)
   const currentURL = window.location.href;
   const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
-  const popupURL = baseURL + 'popup.html'; // Construct the correct path
+  const popupURL = baseURL + 'popup.html';
 
-  window.open(popupURL, 'movingPopup', 'width=300,height=200');
+  for (let i = 0; i < numPopups; i++) {
+    window.open(popupURL, 'movingPopup' + i, 'width=300,height=200'); // Unique window names
+  }
 }
 </script>
 
