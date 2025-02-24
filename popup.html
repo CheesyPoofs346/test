@@ -15,34 +15,14 @@ body {
 </div>
 
 <script>
-const numPopups = 5; // Number of popups to open
-const popups = []; // Array to store popup window objects
-
-function openMovingPopup() {
-  const popup = window.open('popup.html', 'movingPopup', 'width=300,height=200');
-  popups.push(popup); // Add the new popup to the array
-}
-
-for (let i = 0; i < numPopups; i++) {
-  openMovingPopup(); // Open multiple popups
-}
-
-
-// Code for popup.html (separate file)
-// ------------------------------------
-
-// In popup.html:
-// ... (rest of the HTML code for popup.html)
-
 const popupElement = document.getElementById('popup');
 let x = 50;
 let y = 50;
-let dx = 2;
-let dy = 2;
+let dx = 5; // Increased initial speed
+let dy = 5; // Increased initial speed
 let maxX;
 let maxY;
 let initialMove = true;
-
 
 function updatePopupPosition() {
   maxX = window.innerWidth - popupElement.offsetWidth;
@@ -51,22 +31,25 @@ function updatePopupPosition() {
   x += dx;
   y += dy;
 
-  if (x + popupElement.offsetWidth > maxX || x < 0) {
-    dx = -dx;
-    dx += (Math.random() - 0.5) * 2;
-  }
-  if (y + popupElement.offsetHeight > maxY || y < 0) {
-    dy = -dy;
-    dy += (Math.random() - 0.5) * 2;
-  }
+    // More pronounced bouncing with some randomness
+    if (x + popupElement.offsetWidth > maxX || x < 0) {
+      dx = -dx * 1.1; // Reverse and increase speed slightly
+      dx += (Math.random() - 0.5) * 4; // More randomness in x direction
+    }
+    if (y + popupElement.offsetHeight > maxY || y < 0) {
+      dy = -dy * 1.1; // Reverse and increase speed slightly
+      dy += (Math.random() - 0.5) * 4; // More randomness in y direction
+    }
 
-  if (Math.random() < 0.02) {
-    dx += (Math.random() - 0.5) * 4;
-    dy += (Math.random() - 0.5) * 4;
-  }
+  // More frequent random direction changes with larger adjustments
+    if (Math.random() < 0.05) { // 5% chance to change direction
+        dx += (Math.random() - 0.5) * 10; // Larger random change
+        dy += (Math.random() - 0.5) * 10; // Larger random change
+    }
 
-  dx = Math.max(-5, Math.min(5, dx));
-  dy = Math.max(-5, Math.min(5, dy));
+  // Limit speed (important!)
+    dx = Math.max(-10, Math.min(10, dx));
+    dy = Math.max(-10, Math.min(10, dy));
 
 
   if (initialMove) {
@@ -80,7 +63,6 @@ function updatePopupPosition() {
 }
 
 updatePopupPosition();
-
 </script>
 
 </body>
