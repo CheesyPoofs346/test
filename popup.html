@@ -16,22 +16,25 @@ body {
 
 <script>
 const popupElement = document.getElementById('popup');
-let x = Math.random() * screen.width;
-let y = 0; // Always start at the top of the screen
-let dx = (Math.random() - 0.5) * 30; // Random direction
-let dy = (Math.random() - 0.5) * 30; // Random direction
+let x = Math.floor(Math.random() * window.screen.width);
+let y = Math.floor(Math.random() * window.screen.height);
+let dx = (Math.random() - 0.5) * 30;
+let dy = (Math.random() - 0.5) * 30;
 let maxX;
 let maxY;
 
 function updatePopupPosition() {
-  maxX = screen.width - popupElement.offsetWidth;
-  maxY = screen.height - popupElement.offsetHeight;
+  maxX = window.screen.width - popupElement.offsetWidth;
+  maxY = window.screen.height - popupElement.offsetHeight;
 
   x += dx;
-  y = 0; // Always stay at the top
+  y += dy;
 
   if (x + popupElement.offsetWidth > maxX || x < 0) {
     dx = -dx;
+  }
+  if (y + popupElement.offsetHeight > maxY || y < 0) {
+    dy = -dy;
   }
 
   window.moveTo(x, y);
