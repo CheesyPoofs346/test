@@ -1,12 +1,12 @@
 {
   "rewrites": [
-    { "source": "/popup.html", "destination": "/popup.html" } // Ensure popup.html is served correctly
+    { "source": "/popup.html", "destination": "/popup.html" }
   ],
   "headers": [
       {
         "source": "/(.*)",
         "headers": [
-          { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" } // Important for popups in some browsers
+          { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
         ]
       }
     ]
