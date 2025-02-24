@@ -16,50 +16,27 @@ body {
 
 <script>
 const popupElement = document.getElementById('popup');
-let x = 0; // Start at the left edge
-let y = 0; // Start at the top edge
-let dx = 5; // Increased initial speed
-let dy = 5; // Increased initial speed
+let x = 50;
+let y = 50;
+let dx = 15; // Faster speed
+let dy = 15; // Faster speed
 let maxX;
 let maxY;
 let initialMove = true;
-let targetX; // Target x position for long movement
-let targetY; // Target y position for long movement
-
-function getRandomTarget() {
-  // Generate random target within screen bounds
-  targetX = Math.floor(Math.random() * window.innerWidth);
-  targetY = Math.floor(Math.random() * window.innerHeight);
-}
 
 function updatePopupPosition() {
-  maxX = window.innerWidth - popupElement.offsetWidth;
-  maxY = window.innerHeight - popupElement.offsetHeight;
+  maxX = window.screen.width - popupElement.offsetWidth;
+  maxY = window.screen.height - popupElement.offsetHeight;
 
-    if (initialMove) {
-        getRandomTarget();
-        initialMove = false;
-    }
+  x += dx;
+  y += dy;
 
-  // Move towards the target
-    const distX = targetX - x;
-    const distY = targetY - y;
-    const distance = Math.sqrt(distX * distX + distY * distY);
-
-    if (distance > 10) { // Only move if far enough away
-        const speed = Math.min(10, distance / 20); // Adjust speed based on distance
-        x += distX / distance * speed;
-        y += distY / distance * speed;
-    } else {
-        getRandomTarget(); // Get a new target
-    }
-
-    if (x < 0) x = 0;
-    if (y < 0) y = 0;
-    if (x > maxX) x = maxX;
-    if (y > maxY) y = maxY;
-
-
+  if (x + popupElement.offsetWidth > maxX || x < 0) {
+    dx = -dx;
+  }
+  if (y + popupElement.offsetHeight > maxY || y < 0) {
+    dy = -dy;
+  }
 
   window.moveTo(x, y);
 
