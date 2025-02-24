@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Main Window</title>
+</head>
+<body>
+
+<button onclick="openPopup()">Open Moving Popup</button>
+
+<script>
+function openPopup() {
+  // Get the current URL's directory
+  const currentURL = window.location.href;
+  const baseURL = currentURL.substring(0, currentURL.lastIndexOf("/") + 1);
+  const popupURL = baseURL + 'popup.html'; // Construct the correct path
+
+  window.open(popupURL, 'movingPopup', 'width=300,height=200');
+}
+</script>
+
+</body>
+</html>
