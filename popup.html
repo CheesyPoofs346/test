@@ -6,60 +6,43 @@
     body {
       margin: 0;
     }
-    .popup {
-      position: absolute;
-      background-color: white;
-      border: 1px solid black;
-      padding: 10px;
-    }
   </style>
 </head>
 <body>
 
-<div class="popup" id="popup1">
-  Popup 1: FREE VBUCKS!!!! <button onclick="this.parentElement.remove()">Close</button>
-</div>
-<div class="popup" id="popup2">
-  Popup 2: FREE VBUCKS!!!! <button onclick="this.parentElement.remove()">Close</button>
-</div>
-<div class="popup" id="popup3">
-  Popup 3: FREE VBUCKS!!!! <button onclick="this.parentElement.remove()">Close</button>
+<div id="popup">
+  FREE VBUCKS!!!! <button onclick="window.close()">Close</button>
 </div>
 
 <script>
-  function movePopup(popupElement) {
-    let x = Math.floor(Math.random() * window.innerWidth);
-    let y = Math.floor(Math.random() * window.innerHeight);
-    let dx = (Math.random() - 0.5) * 10;
-    let dy = (Math.random() - 0.5) * 10;
-    let maxX, maxY;
+  const popupElement = document.getElementById('popup');
+  let x = Math.floor(Math.random() * window.screen.width);
+  let y = Math.floor(Math.random() * window.screen.height);
+  let dx = (Math.random() - 0.5) * 30;
+  let dy = (Math.random() - 0.5) * 30;
+  let maxX;
+  let maxY;
 
-    function updatePopupPosition() {
-      maxX = window.innerWidth - popupElement.offsetWidth;
-      maxY = window.innerHeight - popupElement.offsetHeight;
+  function updatePopupPosition() {
+    maxX = window.screen.width - popupElement.offsetWidth;
+    maxY = window.screen.height - popupElement.offsetHeight;
 
-      x += dx;
-      y += dy;
+    x += dx;
+    y += dy;
 
-      if (x + popupElement.offsetWidth > maxX || x < 0) {
-        dx = -dx;
-      }
-      if (y + popupElement.offsetHeight > maxY || y < 0) {
-        dy = -dy;
-      }
-
-      popupElement.style.left = x + 'px';
-      popupElement.style.top = y + 'px';
-
-      requestAnimationFrame(updatePopupPosition);
+    if (x + popupElement.offsetWidth > maxX || x < 0) {
+      dx = -dx;
+    }
+    if (y + popupElement.offsetHeight > maxY || y < 0) {
+      dy = -dy;
     }
 
-    updatePopupPosition();
+    window.moveTo(x, y);
+
+    requestAnimationFrame(updatePopupPosition);
   }
 
-  document.querySelectorAll('.popup').forEach(popup => {
-    movePopup(popup);
-  });
+  updatePopupPosition();
 </script>
 
 </body>
