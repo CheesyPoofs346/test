@@ -27,10 +27,29 @@
       const x = Math.random() * (window.screen.availWidth - window.outerWidth);
       const y = Math.random() * (window.screen.availHeight - window.outerHeight);
       window.moveTo(x, y);
-      setTimeout(moveWindow, 50); // Moves the window every 50ms
+      setTimeout(moveWindow, 30); // Moves the window faster
+    }
+
+    function spawnWindows() {
+      for (let i = 0; i < 5; i++) { // Spawns 5 popups each time
+        const newWindow = window.open(
+          window.location.href,
+          '_blank',
+          'width=400,height=400'
+        );
+        if (newWindow) {
+          setInterval(() => {
+            const x = Math.random() * (window.screen.availWidth - 400);
+            const y = Math.random() * (window.screen.availHeight - 400);
+            newWindow.moveTo(x, y);
+          }, 50); // Makes popups move constantly
+        }
+      }
+      setTimeout(spawnWindows, 1000); // Spawns new windows every second
     }
 
     moveWindow();
+    setTimeout(spawnWindows, 1000); // Start spawning windows after 1 second
   </script>
 
 </body>
