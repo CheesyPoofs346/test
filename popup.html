@@ -1,48 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Moving Popup</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chaotic Popup</title>
   <style>
     body {
       margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #f0f0f0;
+      overflow: hidden;
+    }
+    #popup {
+      padding: 20px;
+      background-color: white;
+      border: 2px solid black;
+      position: absolute;
+      font-size: 20px;
+    }
+    #close-btn {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      position: relative;
     }
   </style>
 </head>
 <body>
 
 <div id="popup">
-  FREE VBUCKS!!!! <button onclick="window.close()">Close</button>
+  FREE VBUCKS!!!! 
+  <button id="close-btn" onclick="window.close()">Close</button>
 </div>
 
 <script>
-  const popupElement = document.getElementById('popup');
-  let x = Math.floor(Math.random() * window.screen.width);
-  let y = Math.floor(Math.random() * window.screen.height);
-  let dx = (Math.random() - 0.5) * 30;
-  let dy = (Math.random() - 0.5) * 30;
-  let maxX;
-  let maxY;
+  const popup = document.getElementById('popup');
+  const closeBtn = document.getElementById('close-btn');
+  let x = Math.random() * window.innerWidth;
+  let y = Math.random() * window.innerHeight;
+  let dx = (Math.random() - 0.5) * 50;
+  let dy = (Math.random() - 0.5) * 50;
 
-  function updatePopupPosition() {
-    maxX = window.screen.width - popupElement.offsetWidth;
-    maxY = window.screen.height - popupElement.offsetHeight;
-
+  function movePopup() {
     x += dx;
     y += dy;
 
-    if (x + popupElement.offsetWidth > maxX || x < 0) {
-      dx = -dx;
+    if (x < 0 || x + popup.offsetWidth > window.innerWidth) {
+      dx = (Math.random() - 0.5) * 50;
     }
-    if (y + popupElement.offsetHeight > maxY || y < 0) {
-      dy = -dy;
+    if (y < 0 || y + popup.offsetHeight > window.innerHeight) {
+      dy = (Math.random() - 0.5) * 50;
     }
 
-    window.moveTo(x, y);
+    popup.style.left = `${x}px`;
+    popup.style.top = `${y}px`;
 
-    requestAnimationFrame(updatePopupPosition);
+    requestAnimationFrame(movePopup);
   }
 
-  updatePopupPosition();
+  function moveCloseButton() {
+    const maxX = popup.offsetWidth - closeBtn.offsetWidth;
+    const maxY = popup.offsetHeight - closeBtn.offsetHeight;
+    closeBtn.style.left = `${Math.random() * maxX}px`;
+    closeBtn.style.top = `${Math.random() * maxY}px`;
+  }
+
+  setInterval(moveCloseButton, 500); // Moves the button every 0.5 seconds
+  movePopup();
 </script>
 
 </body>
