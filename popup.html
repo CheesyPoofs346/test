@@ -12,48 +12,25 @@
       align-items: center;
       height: 100vh;
       background-color: #ff0000;
-      font-size: 2rem;
+      font-size: 3rem;
       color: white;
       text-align: center;
-    }
-    #close-btn {
-      padding: 15px 30px;
-      font-size: 1.5rem;
-      cursor: pointer;
-      background-color: white;
-      color: black;
-      border: none;
-      position: absolute;
     }
   </style>
 </head>
 <body>
 
   <div>FREE VBUCKS!!!!</div>
-  <button id="close-btn" onclick="window.close()">Close</button>
 
   <script>
-    let dx = (Math.random() - 0.5) * 100;
-    let dy = (Math.random() - 0.5) * 100;
-    let closeBtn = document.getElementById('close-btn');
-
     function moveWindow() {
-      let x = Math.max(0, Math.random() * (window.screen.availWidth - window.outerWidth));
-      let y = Math.max(0, Math.random() * (window.screen.availHeight - window.outerHeight));
+      const x = Math.random() * (window.screen.availWidth - window.outerWidth);
+      const y = Math.random() * (window.screen.availHeight - window.outerHeight);
       window.moveTo(x, y);
-      setTimeout(moveWindow, 200);
-    }
-
-    function moveCloseButton() {
-      let maxX = window.innerWidth - closeBtn.offsetWidth;
-      let maxY = window.innerHeight - closeBtn.offsetHeight;
-      closeBtn.style.left = `${Math.random() * maxX}px`;
-      closeBtn.style.top = `${Math.random() * maxY}px`;
-      setTimeout(moveCloseButton, 300);
+      setTimeout(moveWindow, 50); // Moves the window every 50ms
     }
 
     moveWindow();
-    moveCloseButton();
   </script>
 
 </body>
